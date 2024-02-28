@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend/todo
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    networks:
+      frontend-backend:
+        ipv4_address: 172.50.0.2
+
+  backend:
+    build:
+      context: ./backend/djangoproject
+      dockerfile: Dockerfile
+    container_name: backend
+    image: backend_img
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - POSTGRES_DB=todo
+      - POSTGRES_USER=todo
+      - POSTGRES_PASSWORD=todo
+    networks:
+      frontend-backend:
+        ipv4_address: 172.50.0.3
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    container_name: frontenddb
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      frontend-backend:
+        ipv4_address: 172.50.0.4
+
+networks:
+  frontend-backend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.50.0.0/16
+
+volumes:
+  postgres_data:
