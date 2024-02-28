@@ -22,11 +22,11 @@ jobs:
       - name: Build Frontend Docker Image
         run: |
           cd frontend
-          docker build -t rumeebs23/frontend:latest -f Dockerfile .
+          docker build -t rumeebs23/frontend:latest -f Dockerfile ./todo
           docker push rumeebs23/frontend:latest
 
       - name: Build Backend Docker Image
         run: |
           cd backend
-          docker build -t rumeebs23/backend:latest -f Dockerfile .
+          docker build -t rumeebs23/backend:latest -f Dockerfile ./djangoproject
           docker push rumeebs23/backend:latest
