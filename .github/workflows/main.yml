@@ -19,12 +19,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Customer Service
+      - name: Build Frontend Docker Image
         run: |
           docker build -t rumeebs23/frontend:latest -f ./frontend/todo/Dockerfile ./todo
           docker push rumeebs23/todo:latest
 
-      - name: Build and Push Product Service
+      - name: Build Backend Docker Image
         run: |
           docker build -t rumeebs23/backend:latest -f ./backend/djangoproject/Dockerfile ./djangoproject
           docker push rumeebs23/todo:latest
