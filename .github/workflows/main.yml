@@ -19,14 +19,16 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Build Backend Docker Image
+        run: |
+            cd backend/djangoproject
+            docker build -t rumeebs23/backend:latest -f ./djangoproject/Dockerfile ./djangoproject
+            docker push rumeebs23/backend:latest
+  
       - name: Build Frontend Docker Image
         run: |
           cd frontend/todo/
-          docker build -t rumeebs23/frontend:latest -f ./Dockerfile ./todo
+          docker build -t rumeebs23/frontend:latest -f ./todo/Dockerfile ./todo
           docker push rumeebs23/frontend:latest
 
-      - name: Build Backend Docker Image
-        run: |
-          cd backend/djangoproject
-          docker build -t rumeebs23/backend:latest -f ./Dockerfile ./djangoproject
-          docker push rumeebs23/backend:latest
+ 
