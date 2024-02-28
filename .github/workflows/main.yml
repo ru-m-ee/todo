@@ -22,9 +22,9 @@ jobs:
       - name: Build and Push Customer Service
         run: |
           docker build -t rumeebs23/frontend:latest -f ./frontend_backend/frontend/todo/Dockerfile ./todo
-          docker push rumeebs23/frontend:latest
+          docker push rumeebs23/todo:latest
 
       - name: Build and Push Product Service
         run: |
           docker build -t rumeebs23/backend:latest -f ./frontend_backend/backend/djangoproject/Dockerfile ./djangoproject
-          docker push rumeebs23/backend:latest
+          docker push rumeebs23/todo:latest
