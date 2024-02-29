@@ -27,6 +27,6 @@ jobs:
 
       - name: Build Frontend Docker Image
         run: |
-          cd frontend/todo  
-          docker build -t rumeebs23/frontend:latest -f Dockerfile
+          cd frontend/todo  # Change directory to where the Dockerfile is located
+          docker build -t rumeebs23/frontend:latest -f Dockerfile .  # Use '.' to specify the current directory
           docker push rumeebs23/frontend:latest
