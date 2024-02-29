@@ -32,6 +32,7 @@ jobs:
             file: ./frontend/todo/Dockerfile
             platforms: linux/amd64
             push: true
-            tags: ${{ steps.docker_meta_frontend.outputs.image_tags }}
-            labels: ${{ steps.docker_meta_frontend.outputs.image_labels }}
+            tags: rumeebs23/frontend:latest  # Specify the tag here
+            labels: ${{ steps.docker_meta_frontend.outputs.labels }}
+        
         
