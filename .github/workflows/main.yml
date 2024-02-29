@@ -21,12 +21,15 @@ jobs:
 
       - name: Build Backend Docker Image
         run: |
+          # Build the backend Docker image
           docker build -t rumeebs23/backend:latest -f ./backend/djangoproject/Dockerfile ./backend/djangoproject
+          # Push the backend Docker image to Docker Hub
           docker push rumeebs23/backend:latest
   
 
       - name: Build Frontend Docker Image
         run: |
-          cd frontend/todo  # Change directory to where the Dockerfile is located
-          docker build -t rumeebs23/frontend:latest -f Dockerfile .  # Use '.' to specify the current directory
+          # Build the frontend Docker image
+          docker build -t rumeebs23/frontend:latest -f ./frontend/todo/Dockerfile ./frontend/todo
+          # Push the frontend Docker image to Docker Hub
           docker push rumeebs23/frontend:latest
