@@ -23,9 +23,19 @@ jobs:
         run: |
           docker build -t rumeebs23/backend:latest -f ./backend/djangoproject/Dockerfile ./backend/djangoproject
           docker push rumeebs23/backend:latest
-  
 
-      - name: Build Frontend Docker Image
-        run: |
-          docker build -t rumeebs23/frontend:latest -f ./frontend/todo/Dockerfile  .
-          docker push rumeebs23/frontend:latest
+      - name: Set up Docker Meta for Frontend
+        id: docker_meta_frontend
+        uses: docker/metadata-action@v5
+        with:
+          images: frontend
+
+      - name: Build and Push Frontend Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./front
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.docker_meta_frontend.outputs.tags }}
+          labels: ${{ steps.docker_meta_frontend.outputs.labels }}
