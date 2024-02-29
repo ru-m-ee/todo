@@ -25,7 +25,13 @@ jobs:
           docker push rumeebs23/backend:latest
   
 
-      - name: Build Frontend Docker Image
-        run: |
-          docker build -t rumeebs23/frontend:latest -f ./home/rumee/frontend_backend/frontend/todo/Dockerfile  ./frontend/todo
-          docker push rumeebs23/frontend:latest
+      - name: Build and Push Frontend Docker Image
+        uses: docker/build-push-action@v5
+        with:
+            context: ./frontend/todo
+            file: Dockerfile
+            platforms: linux/amd64
+            push: true
+            tags: ${{ steps.docker_meta_frontend.outputs.tags }}
+            labels: ${{ steps.docker_meta_frontend.outputs.labels }}
+        
