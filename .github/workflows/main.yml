@@ -27,6 +27,6 @@ jobs:
 
       - name: Build Frontend Docker Image
         run: |
-          docker build -t rumeebs23/frontend:latest -f ./frontend/todo/Dockerfile ./frontend/todo
-
+          cd frontend/todo  
+          docker build -t rumeebs23/frontend:latest -f Dockerfile .  
           docker push rumeebs23/frontend:latest
