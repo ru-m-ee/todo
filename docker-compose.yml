@@ -2,27 +2,19 @@ version: '3'
 
 services:
   frontend:
-    build:
-      context: ./frontend/todo
-      dockerfile: Dockerfile
+    image: rumeebs23/frontend:latest
+    container_name: frontend_container
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend:/app
     networks:
       frontend-backend:
         ipv4_address: 172.50.0.2
 
   backend:
-    build:
-      context: ./backend/djangoproject
-      dockerfile: Dockerfile
-    container_name: backend
-    image: backend_img
+    image: rumeebs23/backend:latest
+    container_name: backend_container
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
     environment:
       - POSTGRES_DB=todo
       - POSTGRES_USER=todo
@@ -35,7 +27,7 @@ services:
 
   db:
     image: postgres
-    container_name: frontenddb
+    container_name: database
     environment:
       POSTGRES_DB: todo
       POSTGRES_USER: todo
