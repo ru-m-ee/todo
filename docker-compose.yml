@@ -13,6 +13,21 @@ services:
       frontend-backend:
         ipv4_address: 172.50.0.2
 
+  db:
+    image: postgres
+    container_name: database
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      frontend-backend:
+        ipv4_address: 172.50.0.4
+        
   backend:
     build:
       context: ./backend/djangoproject
@@ -32,21 +47,6 @@ services:
         ipv4_address: 172.50.0.3
     depends_on:
       - db
-
-  db:
-    image: postgres
-    container_name: frontenddb
-    environment:
-      POSTGRES_DB: todo
-      POSTGRES_USER: todo
-      POSTGRES_PASSWORD: todo
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      frontend-backend:
-        ipv4_address: 172.50.0.4
 
 networks:
   frontend-backend:
